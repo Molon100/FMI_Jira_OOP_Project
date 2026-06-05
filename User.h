@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Role.h"
 
 
 class User
@@ -9,10 +10,13 @@ protected:
 	unsigned id;
 	std::string username;
 	std::string password;
-	void login(std::string username, std::string password) const;
-	void logout(std::string username, std::string password) const;
-	void help() const;
-	void viewProfile() const;
+	Role role;
+
+	const User* login(std::string username, std::string password) const;
+	bool logout(std::string username, std::string password) const;
+	virtual void help() const = 0;
+	virtual void viewProfile() const = 0;
 	void close() const;
 	
+	virtual ~User() = default;
 };
