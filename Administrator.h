@@ -3,7 +3,8 @@
 
 class Administrator : public User
 {
-	// Inherited via User
+public:
+	Administrator(const std::string& username, const std::string& password);
 	std::unique_ptr<User> clone() const override;
 	void help() const override;
 	void viewProfile() const override;
