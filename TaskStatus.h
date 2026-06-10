@@ -1,6 +1,6 @@
 #pragma once
 
-enum class Status
+enum class TaskStatus
 {
 	ToDo,
 	InProgress,
