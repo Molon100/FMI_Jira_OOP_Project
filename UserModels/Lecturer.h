@@ -1,11 +1,9 @@
 #pragma once
-#include "User.h"
+#include "TeachingAssistant.h"
 
-class Lecturer : public User
+class Lecturer : public TeachingAssistant
 {
 public:
 	Lecturer(const std::string& username, const std::string& password);
 	std::unique_ptr<User> clone() const override;
-	void help() const override;
-	void viewProfile() const override;
 };

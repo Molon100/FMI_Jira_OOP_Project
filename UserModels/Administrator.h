@@ -3,9 +3,11 @@
 
 class Administrator : public User
 {
-public:
+
 	Administrator(const std::string& username, const std::string& password);
+public:
+	Administrator(const Administrator& other) = delete;
+	Administrator& operator=(const Administrator& other) = delete;
+	static Administrator* getInstance();
 	std::unique_ptr<User> clone() const override;
-	void help() const override;
-	void viewProfile() const override;
 };
