@@ -12,13 +12,14 @@ class JiraSystem
 	std::vector<std::unique_ptr<Project>> projcets;
 	std::vector<std::unique_ptr<Task>> tasks;
 	bool isRunning = true;
-	User* currentUser;
+	const User* currentUser;
 	CommandSystem cs;
 
-	void action();
 	void addUser(const std::string& username, const std::string& password, const Role& role);
 	bool isNew() const;
 	void createNew();
 public:
+	const User* findUserByUsername(const std::string& username) const;
+	void assignUser(const User* user);
 	void run();
 };

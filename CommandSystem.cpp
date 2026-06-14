@@ -1,6 +1,8 @@
 #include "CommandSystem.h"
+#include "JiraSystem.h"
+#include <iostream>
 
-void CommandSystem::parseCommand(std::string command)
+void CommandSystem::parseCommand(const std::string& command)
 {
 	parsedCommand.clear();
 	int i = 0;
@@ -14,4 +16,20 @@ void CommandSystem::parseCommand(std::string command)
 		}
 	}
 	parsedCommand.push_back(command.substr(prev));
+}
+
+void CommandSystem::executeCommand(const std::string& name, JiraSystem& system) const
+{
+	Command* command = commandHeap.findCommandByName(name);
+	command->execute(parsedCommand, system);
+}
+
+void CommandSystem::action(JiraSystem& system)
+{
+	std::cout << '>';
+	std::string command;
+	std::getline(std::cin, command);
+	parseCommand(command);
+	std::string commandName = parsedCommand[0];
+	executeCommand(commandName, system);
 }

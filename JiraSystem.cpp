@@ -7,17 +7,25 @@ void JiraSystem::run()
 {
 	while (isRunning)
 	{
-		action();
+		cs.action(*this);
 	}
 }
 
-void JiraSystem::action()
+const User* JiraSystem::findUserByUsername(const std::string& username) const
 {
-	std::cout << '>';
-	std::string command;
-	std::getline(std::cin, command);
-	cs.parseCommand(command);
+	for (const auto& user : users)
+	{
+		if (user->getUsername() == username)
+		{
+			return user.get();
+		}
+	}
+	return nullptr;
+}
 
+void JiraSystem::assignUser(const User* user)
+{
+	currentUser = user;
 }
 
 void JiraSystem::addUser(const std::string& username, const std::string& password, const Role& role)
