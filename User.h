@@ -22,5 +22,7 @@ public:
 	//void close() const;
 
 	unsigned getId() const;
+	bool checkPassword(const std::string& password) const;
+	const std::string& getUsername() const;
 };
 

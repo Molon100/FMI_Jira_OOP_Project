@@ -5,6 +5,7 @@
 #include "Project.h"
 #include "Task.h"
 #include "CommandSystem.h"
+#include "UserFactory.h"
 
 class JiraSystem
 {
@@ -18,6 +19,7 @@ class JiraSystem
 	void addUser(const std::string& username, const std::string& password, const Role& role);
 	bool isNew() const;
 	void createNew();
+	void loadUsers();
 public:
 	const User* findUserByUsername(const std::string& username) const;
 	void assignUser(const User* user);

@@ -5,19 +5,28 @@
 
 void JiraSystem::run()
 {
+	if (isNew())
+	{
+		createNew();
+	}
+	else
+	{
+		loadUsers();
+	}
 	while (isRunning)
 	{
 		cs.action(*this);
 	}
 }
 
+
 const User* JiraSystem::findUserByUsername(const std::string& username) const
 {
-	for (const auto& user : users)
+	for (size_t i = 0; i < users.size(); i++)
 	{
-		if (user->getUsername() == username)
+		if (users[i]->getUsername() == username)
 		{
-			return user.get();
+			return users[i].get();
 		}
 	}
 	return nullptr;
@@ -76,4 +85,28 @@ void JiraSystem::createNew()
 	file1.close();
 	file2.close();
 	file3.close();
+}
+
+void JiraSystem::loadUsers()
+{
+	std::ifstream file("Users.txt");
+	if (!file.is_open())
+	{
+		//exc
+	}
+	while (true)
+	{
+		unsigned id = 0;
+		std::string username;
+		std::string password;
+		std::string roleString;
+		file >> id >> username >> password >> roleString;
+		Role role = stringToRole(roleString);
+		users.push_back(UserFactory::makeUser(username, password, role));
+		if (file.eof())
+		{
+			break;
+		}
+	}
+	file.close();
 }
