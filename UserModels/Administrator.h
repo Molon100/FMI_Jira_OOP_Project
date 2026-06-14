@@ -3,11 +3,7 @@
 
 class Administrator : public User
 {
-	//static std::unique_ptr<Administrator> instance;
-	Administrator(const std::string& username, const std::string& password);
 public:
-	Administrator(const Administrator& other) = delete;
-	Administrator& operator=(const Administrator& other) = delete;
-	static Administrator& getInstance();
-	//std::unique_ptr<User> clone() const override;
+	Administrator(const std::string& username, const std::string& password);
+	std::unique_ptr<User> clone() const override;
 };

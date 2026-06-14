@@ -4,7 +4,7 @@ Lecturer::Lecturer(const std::string& username, const std::string& password) : U
 {
 }
 
-//std::unique_ptr<User> Lecturer::clone() const
-//{
-//    return std::make_unique<Lecturer>(*this);
-//}
+std::unique_ptr<User> Lecturer::clone() const
+{
+    return std::make_unique<Lecturer>(*this);
+}

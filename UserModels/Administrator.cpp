@@ -4,14 +4,8 @@ Administrator::Administrator(const std::string& username, const std::string& pas
 {
 }
 
-Administrator& Administrator::getInstance()
-{
-    static Administrator instance("admin", "123123");
-    return instance;
-}
 
-//std::unique_ptr<User> Administrator::clone() const
-//{
-//	return nullptr;
-//    // exception
-//}
+std::unique_ptr<User> Administrator::clone() const
+{
+    return std::make_unique<Administrator>(*this);
+}
