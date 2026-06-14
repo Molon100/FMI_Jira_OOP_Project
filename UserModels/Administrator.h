@@ -3,7 +3,7 @@
 
 class Administrator : public User
 {
-
+	//static std::unique_ptr<Administrator> instance;
 	Administrator(const std::string& username, const std::string& password);
 public:
 	Administrator(const Administrator& other) = delete;
