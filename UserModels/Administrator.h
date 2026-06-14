@@ -8,6 +8,6 @@ class Administrator : public User
 public:
 	Administrator(const Administrator& other) = delete;
 	Administrator& operator=(const Administrator& other) = delete;
-	static Administrator* getInstance();
-	std::unique_ptr<User> clone() const override;
+	static Administrator& getInstance();
+	//std::unique_ptr<User> clone() const override;
 };

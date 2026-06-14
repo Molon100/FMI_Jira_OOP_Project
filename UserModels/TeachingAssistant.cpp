@@ -4,8 +4,8 @@ TeachingAssistant::TeachingAssistant(const std::string& username, const std::str
 {
 }
 
-std::unique_ptr<User> TeachingAssistant::clone() const
-{
-	return std::make_unique<TeachingAssistant>(*this);
-}
+//std::unique_ptr<User> TeachingAssistant::clone() const
+//{
+//	return std::make_unique<TeachingAssistant>(*this);
+//}
 
