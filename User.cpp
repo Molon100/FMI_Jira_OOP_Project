@@ -15,3 +15,8 @@ std::string User::viewProfile() const
 {
 	return std::format("Id: {};\nUsername: {}\nRole: {}\n", id, username, roleToString(role));
 }
+
+unsigned User::getId() const
+{
+	return id;
+}

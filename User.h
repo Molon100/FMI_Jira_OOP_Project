@@ -20,5 +20,7 @@ public:
 	std::string help() const;
 	std::string viewProfile() const;
 	//void close() const;
+
+	unsigned getId() const;
 };
 
