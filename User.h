@@ -14,7 +14,6 @@ protected:
 	Role role;
 public:
 	User(const std::string& username, const std::string& password, const Role& role);
-	virtual std::unique_ptr<User> clone() const = 0;
 
 	//const User* login(std::string username, std::string password) const;
 	//bool logout(std::string username, std::string password) const;
