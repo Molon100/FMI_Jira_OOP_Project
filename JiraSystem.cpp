@@ -3,6 +3,23 @@
 #include <fstream>
 #include <string>
 
+void JiraSystem::run()
+{
+	while (isRunning)
+	{
+		action();
+	}
+}
+
+void JiraSystem::action()
+{
+	std::cout << '>';
+	std::string command;
+	std::getline(std::cin, command);
+	cs.parseCommand(command);
+
+}
+
 void JiraSystem::addUser(const std::string& username, const std::string& password, const Role& role)
 {
 	auto p = std::make_unique<User>(username, password, Role::Administrator);
