@@ -1,7 +1,7 @@
 #pragma once
 #include "TeachingAssistant.h"
 
-class Lecturer : public TeachingAssistant
+class Lecturer : public User
 {
 public:
 	Lecturer(const std::string& username, const std::string& password);

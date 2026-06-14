@@ -1,0 +1,11 @@
+#include "TeachingAssistant.h"
+
+TeachingAssistant::TeachingAssistant(const std::string& username, const std::string& password) : User(username, password, Role::TeachingAssistant)
+{
+}
+
+std::unique_ptr<User> TeachingAssistant::clone() const
+{
+	return std::make_unique<TeachingAssistant>(*this);
+}
+

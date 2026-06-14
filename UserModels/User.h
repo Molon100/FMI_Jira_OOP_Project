@@ -19,7 +19,7 @@ public:
 	//const User* login(std::string username, std::string password) const;
 	//bool logout(std::string username, std::string password) const;
 	std::string help() const;
-	std::string viewProfile();
+	std::string viewProfile() const;
 	//void close() const;
 	virtual ~User() = default;
 };
