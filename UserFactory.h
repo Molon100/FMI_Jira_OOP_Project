@@ -4,6 +4,6 @@
 class UserFactory
 {
 public:
-	static std::unique_ptr<User> makeUser(const std::string& username, const std::string& password, const Role& role);
+	static std::shared_ptr<User> makeUser(const std::string& username, const std::string& password, const Role& role);
 	UserFactory() = delete;
 };

@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Date
 {
@@ -10,4 +11,6 @@ class Date
 	void setYear(unsigned year);
 public:
 	Date(unsigned day, unsigned month, unsigned year);
+
+	friend std::ostream& operator<<(std::ostream& os, const Date& date);
 };

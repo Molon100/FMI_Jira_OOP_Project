@@ -31,5 +31,13 @@ void CommandSystem::action(JiraSystem& system)
 	std::getline(std::cin, command);
 	parseCommand(command);
 	std::string commandName = parsedCommand[0];
+	try
+	{
 	executeCommand(commandName, system);
+
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what();
+	}
 }

@@ -13,6 +13,7 @@ void JiraSystem::run()
 	else
 	{
 		loadUsers();
+		loadProjects();
 	}
 	while (isRunning)
 	{
@@ -25,6 +26,30 @@ void JiraSystem::stopRunning()
 	isRunning = false;
 }
 
+
+Project* JiraSystem::findProjectByName(const std::string& projectName) const
+{
+	for (size_t i = 0; i < projects.size(); i++)
+	{
+		if (projects[i]->getName() == projectName)
+		{
+			return projects[i].get();
+		}
+	}
+	return nullptr;
+}
+
+Task* JiraSystem::findTaskWithId(unsigned id) const
+{
+	for (const auto& project : projects)
+	{
+		if (auto q = findTaskWithId(id))
+		{
+			return q;
+		}
+	}
+	return nullptr;
+}
 
 const User* JiraSystem::findUserByUsername(const std::string& username) const
 {
@@ -48,6 +73,30 @@ void JiraSystem::assignCurrentUser(const User* user)
 	currentUser = user;
 }
 
+void JiraSystem::listAllProjectForCurrentUser() const
+{
+	const User* user = getCurrentUser();
+	for (const auto& project : projects)
+	{
+		if (project->hasUser(user->getId()))
+		{
+			std::cout << *project << std::endl;
+		}
+	}
+}
+
+void JiraSystem::listTasksForCurrentUser() const
+{
+	const User* user = getCurrentUser();
+	for (const auto& project : projects)
+	{
+		if (project->hasUser(user->getId()))
+		{
+			project->listTasks();
+		}
+	}
+}
+
 void JiraSystem::addProject(const std::string& name)
 {
 	auto p = std::make_unique<Project>(name);
@@ -60,6 +109,21 @@ void JiraSystem::addProject(const std::string& name)
 	projects.push_back(std::move(p));
 	file.close();
 }
+
+void JiraSystem::save() const
+{
+	std::ofstream file("Projects.txt");
+		if (!file.is_open())
+		{
+			//exc
+		}
+	for (const auto& project : projects)
+	{
+		file << *project;
+	}
+		file.close();
+}
+
 
 void JiraSystem::unassignCurrentUser()
 {
@@ -149,6 +213,28 @@ void JiraSystem::loadUsers()
 		file >> id >> username >> password >> roleString;
 		Role role = stringToRole(roleString);
 		users.push_back(UserFactory::makeUser(username, password, role));
+		if (file.eof())
+		{
+			break;
+		}
+	}
+	file.close();
+}
+
+void JiraSystem::loadProjects()
+{
+	std::ifstream file("Projects.txt");
+	if (!file.is_open())
+	{
+		//exc
+	}
+	while (true)
+	{
+		std::string name;
+		std::string projectStatusStr;
+		file >> name >> projectStatusStr;
+		ProjectStatus status = stringToProjectStatus(projectStatusStr);
+		projects.push_back(std::make_unique<Project>(name, status));
 		if (file.eof())
 		{
 			break;

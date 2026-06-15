@@ -18,7 +18,7 @@ class Task
 	TaskType type;
 	Priority priority;
 	TaskStatus status;
-	std::weak_ptr<User> userInCharge;
+	const User* userInCharge;
 	Date deadline;
 	unsigned points;
 	unsigned grade;
@@ -26,6 +26,11 @@ class Task
 	std::vector<std::string> historyOfChanges;
 public:
 
-	Task(unsigned id, const std::string& title, const std::string& description, const TaskType& type, const Priority& priority);
-	void assignUserInCharge(const User& user);
+	Task(const TaskType& type, const Priority& priority);
+	void assignUserInCharge(const User* user);
+	void setTitle(const std::string& title);
+	void setDesc(const std::string& desc);
+	unsigned getID() const;
+	friend std::ostream& operator<<(std::ostream& os, const Task& task);
+
 };

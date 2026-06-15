@@ -33,3 +33,9 @@ Date::Date(unsigned day, unsigned month, unsigned year)
 	setMonth(month);
 	setDay(day);
 }
+
+std::ostream& operator<<(std::ostream& os, const Date& date)
+{
+	os << "D: " << date.day << " M: " << date.month << " Y: " << date.year << std::endl;
+	return os;
+}

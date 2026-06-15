@@ -7,7 +7,9 @@ void JoinProjectCommand::execute(std::vector<std::string> args, JiraSystem& syst
 	{
 		//exc
 	}
-
+	std::string projectName = args[1];
+	Project* project = system.findProjectByName(projectName);
+	project->addUser(*system.getCurrentUser());
 }
 
 std::unique_ptr<Command> JoinProjectCommand::clone() const

@@ -7,6 +7,11 @@
 #include "CreateProjectCommand.h"
 #include "ArchiveProjectCommand.h"
 #include "RemoveUserCommand.h"
+#include "JoinProjectCommand.h"
+#include "ListTasksCommand.h"
+#include "ListProjectsCommand.h"
+#include "CreateTaskCommand.h"
+#include "SaveCommand.h"
 
 Command* CommandHeap::findCommandByName(const std::string name) const
 {
@@ -29,4 +34,9 @@ CommandHeap::CommandHeap()
 	commands.push_back(CreateProjectCommand().clone());
 	commands.push_back(ArchiveProjectCommand().clone());
 	commands.push_back(RemoveUserCommand().clone());
+	commands.push_back(JoinProjectCommand().clone());
+	commands.push_back(ListTasksCommand().clone());
+	commands.push_back(ListProjectsCommand().clone());
+	commands.push_back(CreateTaskCommand().clone());
+	commands.push_back(SaveCommand().clone());
 }
