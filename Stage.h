@@ -15,5 +15,5 @@ class Stage
 	StageStatus status;
 public:
 
-	Stage(const std::string& name, const Date& startDate, const Date& endDate, const std::vector<std::unique_ptr<Task>>& tasks, const StageStatus& status);
+	Stage(const std::string& name);
 };

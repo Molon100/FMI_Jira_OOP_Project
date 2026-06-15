@@ -12,7 +12,7 @@ class Project
 	std::string name;
 	std::string description;
 	Date startDate;
-	std::vector<std::unique_ptr<User>> users;
+	std::vector<std::shared_ptr<User>> users;
 	std::vector<std::unique_ptr<Task>> tasks;
 	std::vector<std::unique_ptr<Stage>> stages;
 	ProjectStatus status;
