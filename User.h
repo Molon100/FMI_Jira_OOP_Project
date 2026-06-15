@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 #include "Role.h"
+#include <iostream>
 
 
 class User
@@ -24,5 +25,7 @@ public:
 	unsigned getId() const;
 	bool checkPassword(const std::string& password) const;
 	const std::string& getUsername() const;
+
+	friend std::ostream& operator<<(std::ostream& os, const User& user);
 };
 

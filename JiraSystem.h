@@ -15,13 +15,14 @@ class JiraSystem
 	bool isRunning = true;
 	const User* currentUser;
 	CommandSystem cs;
-
 	void addUser(const std::string& username, const std::string& password, const Role& role);
 	bool isNew() const;
 	void createNew();
 	void loadUsers();
 public:
 	const User* findUserByUsername(const std::string& username) const;
+	const User* getCurrentUser() const;
+	void unassignCurrentUser();
 	void assignUser(const User* user);
 	void run();
 };

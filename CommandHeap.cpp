@@ -1,5 +1,7 @@
 #include "CommandHeap.h"
 #include "LoginCommand.h"
+#include "LogoutCommand.h"
+#include "ViewProfileCommand.h"
 
 Command* CommandHeap::findCommandByName(const std::string name) const
 {
@@ -15,4 +17,6 @@ Command* CommandHeap::findCommandByName(const std::string name) const
 CommandHeap::CommandHeap()
 {
 	commands.push_back(LoginCommand().clone());
+	commands.push_back(LogoutCommand().clone());
+	commands.push_back(ViewProfileCommand().clone());
 }

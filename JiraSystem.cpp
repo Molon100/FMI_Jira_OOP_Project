@@ -32,9 +32,20 @@ const User* JiraSystem::findUserByUsername(const std::string& username) const
 	return nullptr;
 }
 
+const User* JiraSystem::getCurrentUser() const
+{
+	return currentUser;
+}
+
 void JiraSystem::assignUser(const User* user)
 {
 	currentUser = user;
+}
+
+void JiraSystem::unassignCurrentUser()
+{
+	currentUser = nullptr;
+	std::cout << "unassigned";
 }
 
 void JiraSystem::addUser(const std::string& username, const std::string& password, const Role& role)
