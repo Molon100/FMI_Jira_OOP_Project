@@ -25,4 +25,5 @@ public:
 	void unassignCurrentUser();
 	void assignUser(const User* user);
 	void run();
+	void stopRunning();
 };

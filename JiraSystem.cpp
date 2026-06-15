@@ -19,6 +19,11 @@ void JiraSystem::run()
 	}
 }
 
+void JiraSystem::stopRunning()
+{
+	isRunning = false;
+}
+
 
 const User* JiraSystem::findUserByUsername(const std::string& username) const
 {

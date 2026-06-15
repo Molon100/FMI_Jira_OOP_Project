@@ -2,6 +2,7 @@
 #include "LoginCommand.h"
 #include "LogoutCommand.h"
 #include "ViewProfileCommand.h"
+#include "CloseCommand.h"
 
 Command* CommandHeap::findCommandByName(const std::string name) const
 {
@@ -19,4 +20,5 @@ CommandHeap::CommandHeap()
 	commands.push_back(LoginCommand().clone());
 	commands.push_back(LogoutCommand().clone());
 	commands.push_back(ViewProfileCommand().clone());
+	commands.push_back(CloseCommand().clone());
 }
