@@ -8,7 +8,6 @@ class JiraSystem;
 class Command
 {
 protected:
-	std::vector<Role> rolePremissions;
 	std::string commandName;
 public:
 	virtual void execute(std::vector<std::string> args,JiraSystem& system) = 0;
@@ -16,5 +15,5 @@ public:
 	virtual ~Command() = default;
 
 	const std::string& getName() const;
-	Command(const std::vector<Role>& rolePremissions, const std::string& name);
+	Command(const std::string& name);
 };

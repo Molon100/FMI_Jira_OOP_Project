@@ -11,6 +11,6 @@ std::unique_ptr<Command> CloseCommand::clone() const
 	return std::make_unique<CloseCommand>(*this);
 }
 
-CloseCommand::CloseCommand() : GeneralCommand("close")
+CloseCommand::CloseCommand() : Command("close")
 {
 }

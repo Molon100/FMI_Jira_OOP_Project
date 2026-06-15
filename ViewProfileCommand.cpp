@@ -12,6 +12,6 @@ std::unique_ptr<Command> ViewProfileCommand::clone() const
 	return std::make_unique<ViewProfileCommand>(*this);
 }
 
-ViewProfileCommand::ViewProfileCommand() : GeneralCommand("view-profile")
+ViewProfileCommand::ViewProfileCommand() : Command("view-profile")
 {
 }

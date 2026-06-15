@@ -1,7 +1,7 @@
 #pragma once
-#include "GeneralCommand.h"
+#include "Command.h"
 
-class CloseCommand : public GeneralCommand
+class CloseCommand : public Command
 {
 public:
 	// Inherited via GeneralCommand

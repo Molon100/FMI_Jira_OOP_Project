@@ -8,7 +8,7 @@ void LoginCommand::execute(std::vector<std::string> commandArgs, JiraSystem& sys
     const User* user = system.findUserByUsername(username);
     if (user->checkPassword(password))
     {
-        system.assignUser(user);
+        system.assignCurrentUser(user);
     }
 }
 
@@ -17,7 +17,7 @@ std::unique_ptr<Command> LoginCommand::clone() const
     return std::make_unique<LoginCommand>(*this);
 }
 
-LoginCommand::LoginCommand() : GeneralCommand("login")
+LoginCommand::LoginCommand() : Command("login")
 {
 }
 

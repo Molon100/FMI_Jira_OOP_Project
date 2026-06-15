@@ -10,20 +10,25 @@
 class JiraSystem
 {
 	std::vector<std::unique_ptr<User>> users;
-	std::vector<std::unique_ptr<Project>> projcets;
-	std::vector<std::unique_ptr<Task>> tasks;
+	std::vector<std::unique_ptr<Project>> projects;
+	std::vector<std::shared_ptr<Task>> tasks;
 	bool isRunning = true;
 	const User* currentUser;
 	CommandSystem cs;
-	void addUser(const std::string& username, const std::string& password, const Role& role);
 	bool isNew() const;
 	void createNew();
 	void loadUsers();
+	void removeUserFromFile(unsigned index);
 public:
 	const User* findUserByUsername(const std::string& username) const;
 	const User* getCurrentUser() const;
 	void unassignCurrentUser();
-	void assignUser(const User* user);
+	void addUser(const std::string& username, const std::string& password, const Role& role);
+	void removeUser(const std::string& username);
+	void assignCurrentUser(const User* user);
+
+	void addProject(const std::string& name);
+
 	void run();
 	void stopRunning();
 };

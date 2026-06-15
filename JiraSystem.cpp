@@ -8,6 +8,7 @@ void JiraSystem::run()
 	if (isNew())
 	{
 		createNew();
+		std::cin.ignore();
 	}
 	else
 	{
@@ -42,9 +43,22 @@ const User* JiraSystem::getCurrentUser() const
 	return currentUser;
 }
 
-void JiraSystem::assignUser(const User* user)
+void JiraSystem::assignCurrentUser(const User* user)
 {
 	currentUser = user;
+}
+
+void JiraSystem::addProject(const std::string& name)
+{
+	auto p = std::make_unique<Project>(name);
+	std::ofstream file("Projects.txt", std::ios::app);
+	if (!file.is_open())
+	{
+		//exc
+	}
+	file << name << " Active";
+	projects.push_back(std::move(p));
+	file.close();
 }
 
 void JiraSystem::unassignCurrentUser()
@@ -53,17 +67,32 @@ void JiraSystem::unassignCurrentUser()
 	std::cout << "unassigned";
 }
 
+
 void JiraSystem::addUser(const std::string& username, const std::string& password, const Role& role)
 {
-	auto p = std::make_unique<User>(username, password, Role::Administrator);
-	std::ofstream file("Users.txt");
+	auto p = std::make_unique<User>(username, password, role);
+	std::ofstream file("Users.txt", std::ios::app);
 	if (!file.is_open())
 	{
 		//exc
 	}
-	file << p->getId() << ' ' << username << ' ' << password << ' ' << roleToString(role);
+	file << p->getId() << ' ' << username << ' ' << password << ' ' << roleToString(role) << std::endl;
 	users.push_back(std::move(p));
 	file.close();
+}
+
+void JiraSystem::removeUser(const std::string& username)
+{
+	for (size_t i = 0; i < users.size(); i++)
+	{
+		if (users[i]->getUsername() == username)
+		{
+			users.erase(users.begin() + i);
+			removeUserFromFile(i);
+			i--;
+			std::cout << "ye";
+		}
+	}
 }
 
 bool JiraSystem::isNew() const
@@ -98,6 +127,7 @@ void JiraSystem::createNew()
 	std::cin >> adminPassword;
 
 	addUser(adminName, adminPassword, Role::Administrator);
+	assignCurrentUser(users[0].get());
 	file1.close();
 	file2.close();
 	file3.close();
@@ -125,4 +155,26 @@ void JiraSystem::loadUsers()
 		}
 	}
 	file.close();
+}
+
+void JiraSystem::removeUserFromFile(unsigned index)
+{
+	std::ifstream inFile("Users.txt");
+	std::vector<std::string> lines;
+	std::string line;
+
+	while (std::getline(inFile, line))
+		lines.push_back(line);
+
+	inFile.close();
+
+	if (index >= lines.size())
+		return;
+
+	lines.erase(lines.begin() + index);
+
+	std::ofstream outFile("Users.txt");
+
+	for (const auto& line : lines)
+		outFile << line << '\n';
 }

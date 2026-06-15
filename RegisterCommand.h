@@ -2,12 +2,12 @@
 
 #include "Command.h"
 
-class ViewProfileCommand : public Command
+class RegisterCommand : public Command
 {
 public:
-	// Inherited via GeneralCommand
+	// Inherited via Command
 	void execute(std::vector<std::string> args, JiraSystem& system) override;
 	std::unique_ptr<Command> clone() const override;
 
-	ViewProfileCommand();
+	RegisterCommand();
 };

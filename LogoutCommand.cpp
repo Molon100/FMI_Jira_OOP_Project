@@ -12,6 +12,6 @@ std::unique_ptr<Command> LogoutCommand::clone() const
     return std::make_unique<LogoutCommand>(*this);
 }
 
-LogoutCommand::LogoutCommand() : GeneralCommand("logout")
+LogoutCommand::LogoutCommand() : Command("logout")
 {
 }

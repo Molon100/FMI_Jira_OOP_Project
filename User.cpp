@@ -31,7 +31,17 @@ const std::string& User::getUsername() const
 	return username;
 }
 
+Role User::getRole() const
+{
+	return role;
+}
+
 std::ostream& operator<<(std::ostream& os, const User& user)
 {
 	return os << user.id << ' ' << user.username << ' ' <<	roleToString(user.role) << std::endl;
+}
+
+std::istream& operator>>(std::istream& is, User& user)
+{
+	return is >> user.id >> user.username;
 }

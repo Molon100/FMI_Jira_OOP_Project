@@ -25,7 +25,9 @@ public:
 	unsigned getId() const;
 	bool checkPassword(const std::string& password) const;
 	const std::string& getUsername() const;
+	Role getRole() const;
 
 	friend std::ostream& operator<<(std::ostream& os, const User& user);
+	friend std::istream& operator>>(std::istream& is, User& user);
 };
 

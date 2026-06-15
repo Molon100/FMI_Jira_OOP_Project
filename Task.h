@@ -27,4 +27,5 @@ class Task
 public:
 
 	Task(unsigned id, const std::string& title, const std::string& description, const TaskType& type, const Priority& priority);
+	void assignUserInCharge(const User& user);
 };
