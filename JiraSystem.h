@@ -1,0 +1,42 @@
+#pragma once
+#include <vector>
+#include <memory>
+#include "User.h"
+#include "Project.h"
+#include "Task.h"
+#include "CommandSystem.h"
+#include "UserFactory.h"
+
+class JiraSystem
+{
+	std::vector<std::shared_ptr<User>> users;
+	std::vector<std::unique_ptr<Project>> projects;
+	std::vector<std::shared_ptr<Task>> tasks;
+	bool isRunning = true;
+	const User* currentUser;
+	CommandSystem cs;
+	bool isNew() const;
+	void createNew();
+	void loadUsers();
+	void loadTasks();
+	void loadProjects();
+	void removeUserFromFile(unsigned index);
+public:
+	Project* findProjectByName(const std::string& projectName) const;
+	Task* findTaskWithId(unsigned id) const;
+	const User* findUserByUsername(const std::string& username) const;
+	User* findUserById(unsigned id) const;
+	const User* getCurrentUser() const;
+	void unassignCurrentUser();
+	void addUser(const std::string& username, const std::string& password, const Role& role);
+	void removeUser(const std::string& username);
+	void assignCurrentUser(const User* user);
+	void listAllProjectForCurrentUser() const;
+	void listTasksForCurrentUser() const;
+	void addProject(const std::string& name);
+	void addTask(const std::shared_ptr<Task>& task);
+	void save() const;
+
+	void run();
+	void stopRunning();
+};
