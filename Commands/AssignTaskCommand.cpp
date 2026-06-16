@@ -2,11 +2,13 @@
 #include "JiraSystem.h"
 #include "Utils.h"
 
+
 void AssignTaskCommand::execute(std::vector<std::string> args, JiraSystem& system)
 {
 	if (system.getCurrentUser()->getRole() != Role::Student)
 	{
-		//exc
+		throw std::invalid_argument("You need to be a Student");
+
 	}
 	unsigned id = fromStringToNum(args[1]);
 	Task* task = system.findTaskWithId(id);

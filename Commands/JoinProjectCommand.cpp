@@ -1,11 +1,13 @@
 #include "JoinProjectCommand.h"
 #include "JiraSystem.h"
+#include <stdexcept>
 
 void JoinProjectCommand::execute(std::vector<std::string> args, JiraSystem& system)
 {
 	if (system.getCurrentUser()->getRole() != Role::Student)
 	{
-		//exc
+		throw std::invalid_argument("You need to be a Student");
+
 	}
 	std::string projectName = args[1];
 	Project* project = system.findProjectByName(projectName);

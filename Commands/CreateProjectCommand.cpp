@@ -1,11 +1,14 @@
 #include "CreateProjectCommand.h"
 #include "JiraSystem.h"
+#include <stdexcept>
+
 
 void CreateProjectCommand::execute(std::vector<std::string> args, JiraSystem& system)
 {
 	if (system.getCurrentUser()->getRole() != Role::Administrator)
 	{
-		//exc
+		throw std::invalid_argument("You need to be an Admin");
+
 	}
 	std::string projectName = args[1];
 	system.addProject(projectName);

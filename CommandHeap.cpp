@@ -13,6 +13,10 @@
 #include "CreateTaskCommand.h"
 #include "SaveCommand.h"
 #include "ChangeTaskStatusCommand.h"
+#include "AddCommentCommand.h"
+#include "ApproveTaskCommand.h"
+
+#include <stdexcept>
 
 Command* CommandHeap::findCommandByName(const std::string name) const
 {
@@ -22,7 +26,8 @@ Command* CommandHeap::findCommandByName(const std::string name) const
 		{
 			return command.get();
 		}
-	}return nullptr;
+	}
+	throw std::invalid_argument("Command not found");
 }
 
 CommandHeap::CommandHeap()
@@ -41,4 +46,6 @@ CommandHeap::CommandHeap()
 	commands.push_back(CreateTaskCommand().clone());
 	commands.push_back(SaveCommand().clone());
 	commands.push_back(ChangeTaskStatusCommand().clone());
+	commands.push_back(AddCommentCommand().clone());
+	commands.push_back(ApproveTaskCommand().clone());
 }

@@ -21,7 +21,14 @@ void CommandSystem::parseCommand(const std::string& command)
 void CommandSystem::executeCommand(const std::string& name, JiraSystem& system) const
 {
 	Command* command = commandHeap.findCommandByName(name);
-	command->execute(parsedCommand, system);
+	try
+	{
+		command->execute(parsedCommand, system);
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }
 
 void CommandSystem::action(JiraSystem& system)

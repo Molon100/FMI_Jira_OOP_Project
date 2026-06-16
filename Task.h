@@ -35,7 +35,11 @@ public:
 	void assignUserInCharge(const User* user);
 	void setTitle(const std::string& title, const std::string& authorName);
 	void setDesc(const std::string& desc, const std::string& authorName);
+	void changeGrade(unsigned grade);
 	void changeStatus(TaskStatus newStatus, const std::string& authorName);
+	void approve();
+	void review();
+	void addComment(std::unique_ptr <Comment> comment);
 
 	unsigned getID() const;
 	const std::string& getTitle() const;
