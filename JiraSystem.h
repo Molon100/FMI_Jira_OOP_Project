@@ -18,12 +18,14 @@ class JiraSystem
 	bool isNew() const;
 	void createNew();
 	void loadUsers();
+	void loadTasks();
 	void loadProjects();
 	void removeUserFromFile(unsigned index);
 public:
 	Project* findProjectByName(const std::string& projectName) const;
 	Task* findTaskWithId(unsigned id) const;
 	const User* findUserByUsername(const std::string& username) const;
+	User* findUserById(unsigned id) const;
 	const User* getCurrentUser() const;
 	void unassignCurrentUser();
 	void addUser(const std::string& username, const std::string& password, const Role& role);
@@ -32,6 +34,7 @@ public:
 	void listAllProjectForCurrentUser() const;
 	void listTasksForCurrentUser() const;
 	void addProject(const std::string& name);
+	void addTask(const std::shared_ptr<Task>& task);
 	void save() const;
 
 	void run();

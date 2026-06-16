@@ -3,6 +3,23 @@
 
 size_t User::numberOfUsers = 0;
 
+void User::copyFrom(const User& other)
+{
+	id = other.id;
+	username = other.username;
+	password = other.password;
+	role = other.role;
+
+}
+
+void User::free()
+{
+	id = 0;
+	username = "";
+	password = "";
+	role = Role::General;
+}
+
 User::User(const std::string& username, const std::string& password, const Role& role) : username(username), password(password), role(role)
 {
 	numberOfUsers++;
@@ -10,11 +27,21 @@ User::User(const std::string& username, const std::string& password, const Role&
 
 }
 
-
-std::string User::viewProfile() const
+User::User(const User& other)
 {
-	return std::format("Id: {};\nUsername: {}\nRole: {}\n", id, username, roleToString(role));
+	copyFrom(other);
 }
+
+User& User::operator=(const User& other)
+{
+	if (this != &other)
+	{
+		free();
+		copyFrom(other);
+	}
+	return *this;
+}
+
 
 unsigned User::getId() const
 {

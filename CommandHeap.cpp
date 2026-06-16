@@ -12,6 +12,7 @@
 #include "ListProjectsCommand.h"
 #include "CreateTaskCommand.h"
 #include "SaveCommand.h"
+#include "ChangeTaskStatusCommand.h"
 
 Command* CommandHeap::findCommandByName(const std::string name) const
 {
@@ -39,4 +40,5 @@ CommandHeap::CommandHeap()
 	commands.push_back(ListProjectsCommand().clone());
 	commands.push_back(CreateTaskCommand().clone());
 	commands.push_back(SaveCommand().clone());
+	commands.push_back(ChangeTaskStatusCommand().clone());
 }

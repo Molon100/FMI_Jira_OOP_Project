@@ -15,13 +15,15 @@ void CreateTaskCommand::execute(std::vector<std::string> args, JiraSystem& syste
 	Project* project = system.findProjectByName(projectName);
 	auto q = std::make_shared<Task>(type, priority);
 	project->addTask(q);
+	system.addTask(q);
 	std::cout << "Title: ";
 	std::string input;
 	std::getline(std::cin, input);
-	q->setTitle(input);
+	const User* user = system.getCurrentUser();
+	q->setTitle(input, user->getUsername());
 	std::cout << "Desc: ";
 	std::getline(std::cin, input);
-	q->setDesc(input);
+	q->setDesc(input, user->getUsername());
 }
 
 std::unique_ptr<Command> CreateTaskCommand::clone() const

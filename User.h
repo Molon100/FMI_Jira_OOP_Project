@@ -13,14 +13,13 @@ protected:
 	std::string username;
 	std::string password; 
 	Role role;
+
+	void copyFrom(const User& other);
+	void free();
 public:
 	User(const std::string& username, const std::string& password, const Role& role);
-
-	//const User* login(std::string username, std::string password) const;
-	//bool logout(std::string username, std::string password) const;
-	std::string help() const;
-	std::string viewProfile() const;
-	//void close() const;
+	User(const User& other);
+	User& operator=(const User& other);
 
 	unsigned getId() const;
 	bool checkPassword(const std::string& password) const;

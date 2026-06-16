@@ -5,8 +5,9 @@ class Comment
 {
 	std::string author;
 	std::string content;
-	std::string data;
 public:
 
-	Comment(const std::string& author, const std::string& content, const std::string& data);
+	Comment(const std::string& author, const std::string& content);
+
+	friend std::ostream& operator<<(std::ostream& os, const Comment& comment);
 };

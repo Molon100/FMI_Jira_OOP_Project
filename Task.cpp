@@ -2,33 +2,142 @@
 
 size_t Task::numberOfTasks = 0;
 
+void Task::copyFrom(const Task& other)
+{
+	id = other.id;
+	title = other.title;
+	description = other.description;
+	type = other.type;
+	priority = other.priority;
+	status = other.status;
+	userInCharge = other.userInCharge;
+	deadline = other.deadline;
+	points = other.points;
+	grade = other.grade;
+	historyOfChanges = other.historyOfChanges;
+
+	comments.clear();
+	comments.reserve(other.comments.size());
+
+	for (const auto& comment : other.comments)
+	{
+		comments.push_back(std::make_unique<Comment>(*comment));
+	}
+}
+
+Task::Task(unsigned id, const std::string& title, const std::string& desc, const TaskType& type, const Priority& priority, const TaskStatus& status, const Date& deadline, unsigned points, unsigned grade)
+	: id(id), title(title), description(desc), type(type), priority(priority), status(status), deadline(deadline), points(points), grade(grade)
+{
+}
+
 Task::Task(const TaskType& type, const Priority& priority)
 	: title(""), description(""), type(type), priority(priority), status(TaskStatus::ToDo),
-	deadline(31,12,2026),  points(0), grade(0)
+	deadline(0,0,0),  points(0), grade(0)
 {
 	numberOfTasks++;
 	id = numberOfTasks;
 
 }
 
+Task::Task(const Task& other)
+{
+	copyFrom(other);
+}
+
+Task& Task::operator=(const Task& other)
+{
+	if (this != &other)
+	{
+		copyFrom(other);
+	}
+	return *this;
+}
+
 void Task::assignUserInCharge(const User* user)
 {
-	userInCharge = user;
+	//userInCharge = std::make_shared<User>(user);
 }
 
-void Task::setTitle(const std::string& title)
+void Task::setTitle(const std::string& title, const std::string& authorName)
 {
 	this->title = title;
+	std::string change = "Title changed by author: " + authorName;
+	historyOfChanges.push_back(change);
 }
 
-void Task::setDesc(const std::string& desc)
+void Task::setDesc(const std::string& desc, const std::string& authorName)
 {
 	this->description = desc;
+	std::string change = "Description changed by author: " + authorName;
+	historyOfChanges.push_back(change);
+}
+
+void Task::changeStatus(TaskStatus newStatus, const std::string& authorName)
+{
+	status = newStatus;
+	std::string change = "Task status changed by author: " + authorName;
+	historyOfChanges.push_back(change);
+	std::cout << "Status changed" << std::endl;
 }
 
 unsigned Task::getID() const
 {
 	return id;
+}
+
+const std::string& Task::getTitle() const
+{
+	return title;
+}
+
+const std::string& Task::getDesc() const
+{
+	return description;
+}
+
+const TaskType& Task::getType() const
+{
+	return type;
+}
+
+const Priority& Task::getPriority() const
+{
+	return priority;
+}
+
+const TaskStatus& Task::getStatus() const
+{
+	return status;
+}
+
+const std::weak_ptr<User>& Task::getUserInCharge() const
+{
+	return userInCharge;
+}
+
+const Date& Task::getDate() const
+{
+	return deadline;
+}
+
+unsigned Task::getPoints() const
+{
+	return points;
+}
+
+unsigned Task::getGrade() const
+{
+	return grade;
+}
+
+const std::vector<std::unique_ptr<Comment>>& Task::getComments() const
+{
+	return comments;
+}
+
+const std::vector<std::string>& Task::getChanges() const
+{
+	return historyOfChanges;
 }
 
 std::ostream& operator<<(std::ostream& os, const Task& task)
