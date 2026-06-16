@@ -1,5 +1,6 @@
 #include "LogoutCommand.h"
 #include "JiraSystem.h"
+#include <stdexcept>
 
 
 void LogoutCommand::execute(std::vector<std::string> args, JiraSystem& system)

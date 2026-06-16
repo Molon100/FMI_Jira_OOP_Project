@@ -1,12 +1,14 @@
 #include "RemoveUserCommand.h"
 #include "JiraSystem.h"
+#include <stdexcept>
 
 
 void RemoveUserCommand::execute(std::vector<std::string> args, JiraSystem& system)
 {
 	if (system.getCurrentUser()->getRole() != Role::Administrator)
 	{
-		//exc
+		throw std::invalid_argument("You need to be an Admin");
+
 	}
 	std::string username = args[1];
 	system.removeUser(username);

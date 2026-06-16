@@ -24,6 +24,10 @@ public:
 	Project(const std::string& name, ProjectStatus status);
 	void addUser(const User& user);
 	void addTask(std::shared_ptr<Task> task);
+
+	void finalize();
+	void archive();
+
 	const std::string& getName() const;
 	const std::string& getDesc() const;
 	const Date& getDate() const;

@@ -1,4 +1,5 @@
 #include "Task.h"
+#include <stdexcept>
 
 size_t Task::numberOfTasks = 0;
 
@@ -72,12 +73,39 @@ void Task::setDesc(const std::string& desc, const std::string& authorName)
 	historyOfChanges.push_back(change);
 }
 
+void Task::changeGrade(unsigned grade)
+{
+	if (grade < 2 || grade > 6)
+	{
+		throw std::invalid_argument("Invalid grade");
+	}
+	this->grade = grade;
+	std::cout << "Task has been graded" << std::endl;
+}
+
 void Task::changeStatus(TaskStatus newStatus, const std::string& authorName)
 {
 	status = newStatus;
 	std::string change = "Task status changed by author: " + authorName;
 	historyOfChanges.push_back(change);
 	std::cout << "Status changed" << std::endl;
+}
+
+void Task::approve()
+{
+	status = TaskStatus::InReview;
+	std::cout << "Task approved, awaiting review" << std::endl;
+}
+
+void Task::review()
+{
+	status = TaskStatus::Done;
+	std::cout << "Task reviewed" << std::endl;
+}
+
+void Task::addComment(std::unique_ptr<Comment> comment)
+{
+	comments.push_back(std::move(comment));
 }
 
 unsigned Task::getID() const

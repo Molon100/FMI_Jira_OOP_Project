@@ -1,11 +1,15 @@
 #include "CreateTaskCommand.h"
 #include "JiraSystem.h"
+#include <stdexcept>
+
+
 
 void CreateTaskCommand::execute(std::vector<std::string> args, JiraSystem& system)
 {
 	if (system.getCurrentUser()->getRole() != Role::Student)
 	{
-		//exc
+		throw std::invalid_argument("You need to be a Student");
+
 	}
 	std::string projectName = args[1];
 	std::string typeStr = args[2];

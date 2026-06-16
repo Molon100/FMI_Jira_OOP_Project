@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include "Utils.h"
+#include <stdexcept>
 
 
 void JiraSystem::run()
@@ -39,7 +40,7 @@ Project* JiraSystem::findProjectByName(const std::string& projectName) const
 			return projects[i].get();
 		}
 	}
-	return nullptr;
+	throw std::invalid_argument("No project with that name");
 }
 
 Task* JiraSystem::findTaskWithId(unsigned id) const
@@ -51,7 +52,7 @@ Task* JiraSystem::findTaskWithId(unsigned id) const
 			return task.get();
 		}
 	}
-	return nullptr;
+	throw std::invalid_argument("No task with that id");
 }
 
 const User* JiraSystem::findUserByUsername(const std::string& username) const
@@ -63,7 +64,7 @@ const User* JiraSystem::findUserByUsername(const std::string& username) const
 			return users[i].get();
 		}
 	}
-	return nullptr;
+	throw std::invalid_argument("No user with that username");
 }
 
 User* JiraSystem::findUserById(unsigned id) const
@@ -75,7 +76,7 @@ User* JiraSystem::findUserById(unsigned id) const
 			return users[i].get();
 		}
 	}
-	return nullptr;
+	throw std::invalid_argument("No user with that id");
 }
 
 const User* JiraSystem::getCurrentUser() const
@@ -133,22 +134,23 @@ void JiraSystem::save() const
 	for (const auto& task : tasks)
 	{
 		const Date* date = &task->getDate();
-		file1 << task->getID() << task->getTitle() << ' ' << task->getDesc() << ' ' << taskTypeToString(task->getType()) << ' ' <<
+		file1 << task->getID() << ' ' << task->getTitle() << ' ' << task->getDesc() << ' ' << taskTypeToString(task->getType()) << ' ' <<
 			 priotityToString(task->getPriority()) << ' ' << taskStatusToString(task->getStatus()) << ' ' << date->getDay() << ' '
 			<< date->getMonth() << ' ' << date->getYear() << ' ' << task->getPoints() << ' ' << task->getGrade() << std::endl;
-		for (const auto& comment : task->getComments())
-		{
-			file1 << *comment;
-		}
-		file1 << std::endl;
-		file1 << '.';
-		for (const auto& change : task->getChanges())
-		{
-			file1 << change << std::endl;
-		}
-		file1 << '.' << std::endl;
+		//for (const auto& comment : task->getComments())
+		//{
+		//	file1 << *comment;
+		//}
+		//file1 << std::endl;
+		//file1 << '.';
+		//for (const auto& change : task->getChanges())
+		//{
+		//	file1 << change << std::endl;
+		//}
+		//file1 << '.' << std::endl;
 
 	}
+	file1 << '/' << std::endl;
 	for (const auto& project : projects)
 	{
 		const Date* date = &project->getDate();
@@ -165,6 +167,7 @@ void JiraSystem::save() const
 		}
 		file2 << std::endl << '.' << std::endl;
 	}
+	file2 << '/' << std::endl;
 		file1.close();
 		file2.close();
 }
@@ -173,7 +176,7 @@ void JiraSystem::save() const
 void JiraSystem::unassignCurrentUser()
 {
 	currentUser = nullptr;
-	std::cout << "unassigned";
+	std::cout << "User has been logged out" << std::endl;
 }
 
 
